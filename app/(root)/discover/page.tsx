@@ -2,7 +2,11 @@ import React from 'react'
 
 const Discover = () => {
   return (
-    <div>Discover</div>
+    <div>
+      <h1 className="text-20 font-bold text-white-1">
+        Trending Podcasts
+      </h1>
+    </div>
   )
 }
 
