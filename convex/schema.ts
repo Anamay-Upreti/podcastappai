@@ -27,5 +27,11 @@ export default defineSchema({
     imageUrl: v.string(),
     clerkId: v.string(),
     name: v.string(),
+  }),
+  tasks: defineTable({
+    description: v.string(),
+    completed: v.boolean(),
+    assignedTo: v.id('users'),
+    createdAt: v.number(),
   })
-})
+});
