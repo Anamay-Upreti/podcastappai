@@ -5,14 +5,19 @@ import { Textarea } from './ui/textarea'
 import { Button } from './ui/button'
 import { Loader } from 'lucide-react'
 
-const useGeneratePodcast = (props: GeneratePodcastProps) => {
-  
+const useGeneratePodcast = ({
+  setAudio, voiceType, voicePrompt, setAudioStorageId
+}: GeneratePodcastProps) => {
+  const [isGenerating, setIsGenerating] = useState(false);
+  const { toast } = useToast()
 
-  return {
-    isGenerating: false,
-    GeneratePodcast: () => {}
-  }
-}
+  const generateUploadUrl = useMutation(api.files.generateUploadUrl);
+  const { startUpload } = useUploadFiles(generateUploadUrl)
+
+  const getPodcastAudio = useAction(api.openai.generateAudioAction)
+
+  const getAudioUrl = useMutation(api.podcasts.getUrl);
+
 
 const GeneratePodcast =  (props:
   GeneratePodcastProps) => {
