@@ -9,22 +9,29 @@ const useGeneratePodcast = ({
   setAudio, voiceType, voicePrompt, setAudioStorageId
 }: GeneratePodcastProps) => {
   const [isGenerating, setIsGenerating] = useState(false);
-  const { toast } = useToast()
-
-  const generateUploadUrl = useMutation(api.files.generateUploadUrl);
-  const { startUpload } = useUploadFiles(generateUploadUrl)
-
-  const getPodcastAudio = useAction(api.openai.generateAudioAction)
-
-  const getAudioUrl = useMutation(api.podcasts.getUrl);
-
-
-const GeneratePodcast =  (props:
-  GeneratePodcastProps) => {
   
-  const { isGenerating, GeneratePodcast } =  useGeneratePodcast (props);
+  const GeneratePodcast = async () =>{
+    setIsGenerating(true);
+    setAudio('');
+
+    if(!voicePrompt){
+      return setIsGenerating(false);
+    }
+    try {
+      const response = await getPodcastAuido({
+        voice: voiceType,
+        input: voicePrompt
+      })
+      
+    } catch (error) {
+      console.log('Error generating podcast', error)
+      setIsGenerating(false)
+    }
+  }
   
-  return (
+  return {isGenerating, GeneratePodcast}
+}
+  (
     <div>
       <div className='flex flex-col gap-2.5'>
         <Label className='text-16 font-bold text-white-1'>
